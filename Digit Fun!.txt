@@ -21,7 +21,7 @@ for line in lines:
         print(len(alphas) - 1)
         
         
-
+ 
 נכניס את כל הקלטים ל
 line 
 עד שנקבל
