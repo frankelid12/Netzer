@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+
+    long long C=0,H=0,O=0,x=0,y=0,z=0,cc=0,oo=0,hh=0;
+    
+    scanf("%lli %lli %lli",&C,&H,&O);
+   
+    y = (2 * O - H)/4;
+    
+    x = (H - 2 *C+2*y)/2;
+    
+    z = (C - y)/6;
+    
+    cc = 6*z+y;
+    hh = 2*x+12*z;
+    oo = x+2*y+6*z;
+    
+    if(cc!=C||oo!=O||hh!=H)
+    {
+        printf("Error");
+    }
+     else if(x<0 || (int)(x)!=x)
+        {
+            printf("Error");
+        }
+    else if(y<0 || (int)(y)!=y)
+        {
+            printf("Error");
+        }
+    else if(z<0 || (int)(z)!=z)
+        {
+            printf("Error");
+        }
+    else
+    printf("%lli %lli %lli",x,y,z);
+    
+    return 0;
+}
+
+
+///קשור לכימיה בכללי הנוסחאות האלה הוא הביא בשיעור וזה מה אומרים לו בהגנה אם הוא שואל
+
+//Idan Lazar
