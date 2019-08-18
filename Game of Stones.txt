@@ -1,0 +1,41 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        long games;
+        long sum = 0;
+        cin >> games;
+        while(games--)
+        {
+            long piles;
+            cin >> piles;
+            while(piles--)
+            {
+                long n;
+                cin >> n;
+                sum += (n-1)/2;
+            }
+        }
+        if(sum % 2 != 0)
+            cout << "Alice\n";
+        else
+            cout << "Bob\n";
+    }
+    return 0;
+}
+
+
+
+
+בשאלה זאת אפשר להיתיחס לכל מישחק במקביל לכמישחק משל עצמו ולכן ניספור כמה תורות לוקח לסיים כל מישחק  בכך שניספור כמה תורות לוכח
+לפרק כל ערמה ונחבר.
+אם מיספר התורות שלוקח לסיים את המשחק זוגי אליס ניצחה אחרת בוב ניצח.
