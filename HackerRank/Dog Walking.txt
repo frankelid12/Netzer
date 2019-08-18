@@ -8,7 +8,7 @@ for tc in range(t):
     
      
     
-    
+   
     לדוגמא 
 8 4
 7
