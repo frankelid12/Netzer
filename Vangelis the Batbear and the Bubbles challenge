@@ -1,0 +1,99 @@
+// Don't place your source in a package
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// מחלקה מייצגת של הגרף
+class Graph
+{
+    private int V;   // מספר קודקודים
+    private LinkedList<Integer> adj[]; // רשימת צלעות
+ 
+    // Constructor
+    Graph(int v) {
+        V = v;
+        adj = new LinkedList[v];
+        for(int i=0; i<v; ++i)
+            adj[i] = new LinkedList();
+    }
+ 
+    // הוספת צלע בגרף
+    void addEdge(int v,int w) {
+        adj[v].add(w);
+        adj[w].add(v);
+    }
+ 
+    // פונקציה רקורסיבית המשתמשת ב 
+    //visited[] ן parent
+    //כדאי למצוא מעגל בתת גרף בנגיש מ קודקוד v.
+    Boolean isCyclicUtil(int v, Boolean visited[], int parent)
+    {
+        // מסמנת שבקרו בקודקוד הנוכחי
+        visited[v] = true;
+        Integer i;
+ 
+        // חוזר על כל הקודקודים בעלי צלע משותפת עלהקודקוד שבודקים
+        Iterator<Integer> it = adj[v].iterator();
+        while (it.hasNext())
+        {
+            i = it.next();
+ 
+            // אם קודקוד עם צלע משותפת לא ביקרו בו אז תעשה רקורסיה ממנו
+            if (!visited[i])
+            {
+                if (isCyclicUtil(i, visited, v))
+                    return true;
+            }
+ 
+            // אם ביקרו בקודקוד והוא לא אב של הקודקוד הנוכחי , יש מעגל, then there is a cycle.
+            else if (i != parent)
+                return true;
+        }
+        return false;
+    }
+ 
+    // מחזיר אמת אם יש מעגל ואחרת שקר
+    Boolean isCyclic()
+    {
+        // מסמן את כל הקודקודים שלא ביקרו בהם
+        Boolean visited[] = new Boolean[V];
+        for (int i = 0; i < V; i++)///
+            visited[i] = false;
+ 
+        // קורה לפונקציה הרקורסיבית למצוא מעגלs
+        for (int u = 0; u < V; u++)
+            if (!visited[u]) //אם ביקרו בך אל תעשה רקורסיה לך 
+                if (isCyclicUtil(u, visited, -1))
+                    return true;
+ 
+        return false;
+    }
+}
+
+// Please name your class Main
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+	  Scanner in = new Scanner(System.in);
+		int t = in.nextInt(); // קולט כמה גרפים
+ 
+        //לכל גרף יקלוט את הכמות הקודקודים ואת הצלעות 
+		for (int i=0; i<t; i++){
+		    int n = in.nextInt(); //כמות קודקודים קליטה
+		    //יצירת גרף חדש
+		    Graph g = new Graph(n);
+		    //קליטת כמות הצלעות בגרף
+		    int m = in.nextInt();
+		    // קולט כל צלע
+		   	for (int j=0; j<m; j++){
+		   	    int a = in.nextInt(); //קודקוד ראון צלע
+		   	    int b = in.nextInt(); //קודקוד שני של צלע
+                //הוספת הצלע שנקלטה לגרף
+		   	    g.addEdge(a, b);
+		   	}
+		    if (g.isCyclic())//בודק אם יש מעגל ומחזיר 1 אם כן
+                System.out.println(1);
+            else
+                System.out.println(0);
+		}
+	}
+}
