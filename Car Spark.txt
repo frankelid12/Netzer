@@ -3,13 +3,12 @@ using namespace std;
 
 int dp[50];
 struct node{
-    int l,r;
-    int val;
+    int s,e,a;
 };
 bool cmp(node a,node b)
 {
-    if(a.r==b.r)return a.l<b.l;
-    return a.r<b.r;
+    if(a.e==b.e)return a.s<b.s;
+    return a.e<b.e;
 }
 node p[3005];
 void solve()
@@ -17,11 +16,11 @@ void solve()
     memset(dp,0,sizeof(dp));
     int n;scanf("%d",&n);
     for(int i=0;i<n;i++)
-        scanf("%d%d%d",&p[i].l,&p[i].r,&p[i].val);
+        scanf("%d%d%d",&p[i].s,&p[i].e,&p[i].a);
     sort(p,p+n,cmp);
     for(int i=0;i<n;i++)
-        for(int j=p[i].l;j>=0;j--)
-            dp[p[i].r]=max(dp[p[i].r],dp[j]+p[i].val);
+        for(int j=p[i].s;j>=0;j--)
+            dp[p[i].e]=max(dp[p[i].e],dp[j]+p[i].a);
     int ans = 0;
     for(int i=0;i<50;i++)
         ans=max(ans,dp[i]);
@@ -34,3 +33,9 @@ int main()
     while(t--)solve();
     return 0;
 }
+
+//בעיקרון מתחילים בקליטה של כל ההשכרות וממינים אותם לפי תאריך התחלה וסיום שקודם לו
+לאחר מכן מכניסים לכל שדה עכשווי את המקסימום לנקודת זמן נוכחית של המחיר להשכרה 
+לבסוף לוקחים את המקסימום של כל הימים ומציגים למסך
+
+//Idan Lazar
