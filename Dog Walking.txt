@@ -6,7 +6,7 @@ for tc in range(t):
     arr = sorted([ x-y for (x,y) in zip(arr,arr[1:]) ])
     print res + sum(arr[:k-1])
     
-    
+     
     
     
     לדוגמא 
