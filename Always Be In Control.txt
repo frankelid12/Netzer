@@ -1,0 +1,114 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+const double a2[] = {0,0,1.880,1.023,0.729,0.577,0.483,0.419,0.373,0.337,0.308};
+
+// x/y rounded up למיקרה ויש קבוצה אחת לא מלאה
+int roundedUp(int x, int y) {
+    return (x+y-1) / y;
+}
+
+bool inControl(vector<int> &p, int group_size) {
+    double center = 0, range = 0;
+    int num_group = roundedUp(p.size(), group_size);
+    for(int i=0; i<num_group; i++) {
+        double mean = 0, min = 20000, max = -20000;
+        int g;
+        for(g=0; g<group_size; g++) {
+            int index = i * group_size + g;
+            if(index >= p.size()) break;
+
+            mean += p[index];
+            if(p[index] < min) min = p[index];
+            if(p[index] > max) max = p[index];
+        }
+        center += mean / g;
+        range += (max - min);
+    }
+    center /= num_group;
+    range /= num_group;
+    
+    double UC3 = center + a2[group_size] * range;
+    double UC2 = center + a2[group_size] * range * 2 / 3;
+    double UC1 = center + a2[group_size] * range / 3;
+    double LC1 = center - a2[group_size] * range / 3;
+    double LC2 = center - a2[group_size] * range * 2 / 3;
+    double LC3 = center - a2[group_size] * range;
+    
+    bool inControl = true;
+    // A single point falls outside the 3-sigma control limits.
+    for(int i=0; i<p.size(); i++) {
+        if(p[i] > UC3 || p[i] < LC3) {
+            inControl = false;
+        }
+    }    
+    // At least two out of three successive values fall on the same side of, and more than two sigma units away from, the center line.
+    for(int i=0; i<p.size()-2; i++) {
+        int countUp = 0, countDown = 0;
+        for(int j=0; j<3; j++) {
+            if(p[i+j] > UC2) countUp++;
+            if(p[i+j] < LC2) countDown++;
+        }
+        if(countUp >=2 || countDown >= 2) {
+            inControl = false;
+        }
+    }
+    // At least four out of five successive values fall on the same side of, and more than one sigma unit away from, the center line.
+    for(int i=0; i<p.size()-4; i++) {
+        int countUp = 0, countDown = 0;
+        for(int j=0; j<5; j++) {
+            if(p[i+j] > UC1) countUp++;
+            if(p[i+j] < LC1) countDown++;
+        }
+        if(countUp >= 4 || countDown >= 4) {
+            inControl = false;
+        } 
+    }
+    // At least eight successive values fall on the same side of the center line.
+    for(int i=0; i<p.size()-7; i++) {
+        int countUp = 0, countDown = 0;
+        for(int j=0; j<8; j++) {
+            if(p[i+j] > center) countUp++;
+            if(p[i+j] < center) countDown++;
+        }
+        if(countUp == 8 || countDown == 8) {
+            inControl = false;
+        }
+    }
+    
+    return inControl;
+}
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int T;
+    cin >> T;
+    for(int t=0; t<T; t++) {
+        int N, group_size;
+        cin >> N >> group_size;
+        
+        vector<int> process(N);
+        for(int n=0; n<N; n++) {
+            cin >> process[n];
+        }
+        
+        if(inControl(process, group_size)) {
+            cout << "In Control" << endl;
+        }
+        else {
+            cout << "Out of Control" << endl;
+        }
+    }
+    
+    return 0;
+}
+
+
+
+
+פשוט עושה מה שצריך בשאלה זה רק חישובים
