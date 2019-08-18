@@ -1,0 +1,32 @@
+lines = []
+
+line = input()
+
+while line != "END":
+    lines.append(line)
+    line = input()
+
+
+for line in lines:
+    if line != "END":
+        alphas = []
+
+        number = int(line)
+        alphas.append(number)
+        alphas.append(len(line))
+
+        while alphas[-1] != alphas[-2]:
+            alphas.append(len(str(alphas[-1])))
+
+        print(len(alphas) - 1)
+        
+        
+
+נכניס את כל הקלטים ל
+line 
+עד שנקבל
+end
+לאחר מכאן לכל קלט ניצור 
+alphabet
+שבו נכניס את הקלט ואת אורכו ובכך במקום ה -1 יהיה האורך ובמקום ה -2 יהיה המספר וכל עוד המספר לא שווה לאורך נוסיף לסוף הרשימה את
+האורך של המספר האחרון שניכנס, האורך של המספר שבא לפניו. לבסוף נדפיס את אורך הרשימה ונעבור למספר הבא. 
