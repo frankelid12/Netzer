@@ -1,0 +1,70 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <math.h>
+
+#define MAXN 10
+
+using namespace std;
+
+int grid[ MAXN + 1 ][ MAXN + 1 ];
+
+int main( void ) {
+    int N, M;
+    scanf("%d%d", &N, &M );
+    for( int i = 0; i < N; i++ ) {
+        for( int j = 0; j < M; j++ ) {
+            scanf("%d", &grid[ i ][ j ] );
+            grid[ i ][ j ] %= 3;
+        }
+    }
+
+    int ans = 0, bound = 1;
+    bound *= pow(3,M);
+    //cout << bound << "\n";
+    for( int num = 0; num < bound; num++ ) {
+        int res = 0;
+        int grid2[ MAXN + 1 ][ MAXN + 1 ], add[ MAXN + 1 ];
+        for( int i = 0; i < N; i++ ) {
+            for( int j = 0; j < M; j++ ) {
+                grid2[ i ][ j ] = grid[ i ][ j ];
+            }
+        }
+        int num2 = num;
+        for( int i = 0; i < M; i++ ) {
+            add[ i ] = num2 % 3;
+            //cout <<add[i]<<"\n";
+            num2 /= 3;
+        }
+        //cout << "\n";
+        for( int j = 0; j < M; j++ ) {
+            for( int i = 0; i < N; i++ ) {
+                grid2[ i ][ j ] = ( grid2[ i ][ j ] + add[ j ] ) % 3;
+            }
+        }
+        for( int i = 0; i < N; i++ ) {
+            int cl[ 3 ] = { 0 };
+            for( int j = 0; j < M; j++ ) {
+                cl[ grid2[ i ][ j ] ]++;
+            }
+            res += max( max( cl[ 0 ], cl[ 1 ] ), cl[ 2 ] );
+            //cout << res << "\n";
+        }
+        ans = max( ans, res );
+    }
+    cout << ans << "\n";
+    return 0;
+}
+
+
+
+
+
+תחילה מכניסים את הקלט ועושים לו מודולו 3 לאחר מכאן ניסתכל על כל האפשרויות שיש לנו להוספה רק למצב שבו מזיזים ביחד את כל המיספרים
+בטור.
+לאחר מכאן לכל שורה נוסיף את ההזזה של אותו איטרציה ונוסיף ל
+res
+את המיספר ההופעות של המיפסר שהופיעה הכי הרבה באותה שורה, זה מספיק כי גם יש את הראפשרות להזיז בשורה את כל השעונים ביחד. 
+לבסוף נחזיר את המיספר הכי גדול מבין כל האיטרציות.
+שקד
