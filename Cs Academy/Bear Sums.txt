@@ -1,0 +1,54 @@
+
+import math, os, random, re, sys, string, itertools, collections
+from collections import *
+
+def p():
+    T = int( input() )
+    for t in range(T):
+        S, E = ( int(s) for s in input().split())
+        seen = set()
+        
+        arr = [ int(s) for s in input().split() ]
+        sol = []
+        for x in arr:
+            if x in seen:
+                sol.append(S-x)
+                sol.append(x)
+                break
+            else:
+                seen.add( S - x )
+                
+        if len(sol) > 0:
+            if sol[0] < sol[1]:
+                print( sol[0], sol[1] )
+            else:
+                print( sol[1], sol[0] )
+        else:
+            print("!OK")
+
+if __name__ == '__main__':
+    p()
+    
+
+תחילה מקבל את הקלט. לאחר מכאן עובר על כל איבר בקלט אם הוא נימצא ברשימה 
+seen
+הוא יכניס ל
+sol
+את עצמו ואת
+s-x
+ואז יצא מהלולאה וידפיס את מה שיש ב
+sol
+לפי קטן ראשון גדול שני
+
+אם המספר לא נימצא ב
+seen
+אז נכניס לרשימה את
+s - x
+וכך אם קיים בקלט איבר שסכומו עם
+x
+שווה ל
+s
+נוכל לימצוא אותו כשנעבור עליו כיוון שהוא ב
+seen
+
+אם נעבור על כל הקלט ולא נימצא זוג נדפיס !OK
