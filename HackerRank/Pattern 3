@@ -1,0 +1,35 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+#include <bits/stdc++.h>
+using namespace std;
+
+const int maxn = 1000010;
+int f[maxn];
+string s;
+
+int main(){
+    int t; // כמות המחרוזות שבודקים
+    cin>> t; //קליטה של כמות המחרוות
+    while(t--){ //לולאה על כמות המחרוזות
+        cin >> s;//קולטת מחרוזת 
+        int n = s.size(); //מגדיר את אורך המחרוזת שנקלטה 
+        memset(f,0,sizeof(f));  // מאפס את  J
+        //רץ על גודל המחרוזת
+        // מגיע לריישא כמו אלגוריתם KMP
+        for(int i=1;i<s.size();i++) 
+        {
+            int j=f[i];
+            while(j && s[i]!=s[j])
+                j=f[j];
+            f[i+1]=(s[i]==s[j])?j+1:0;
+        }
+        //מחסיר מאורך המחרוזת את ההמספר הגבוה ביותר שגענו אליו ומקבלים את אורך הריישא שחוזרת על עצמה
+       
+        cout<< (n - f[n])<<"\n";
+    }
+    return 0;
+}
