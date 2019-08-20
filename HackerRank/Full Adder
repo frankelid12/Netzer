@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std ;
+
+int main()
+{
+    int S;
+    int map[500];
+    char sign;
+    int carry = 0; 
+    string sol = "";
+    string one, two, three, temp;
+    string symbols;
+
+    cin>>S>>symbols; 
+
+    for (int i = 0; i < symbols.size(); ++i)
+        map[symbols[i]] = i;
+    
+    cin>>one>>sign;
+    cin>>two;
+    cin>>three>>temp;
+    int i = one.size() - 1;
+    int j = two.size() - 1;
+    
+    while (i >= 0 || j >= 0)
+    {
+        if (i < 0)
+        {
+            sol += (char)symbols[ (carry + map[two[j]])%S]; 
+            carry = (carry + map[two[j]])/S; 
+        }
+        else if (j < 0)
+        {
+            sol += (char)symbols[(carry + map[one[i]])%S];
+            carry = (carry + map[one[i]])/S;
+        }
+        else 
+        {
+            sol += (char)symbols[ (carry + map[one[i]] + map[two[j]])% S];
+            carry = (carry + map[one[i]] + map[two[j]])/S;  
+        }
+        i--; j--;
+    }
+    reverse(sol.begin(),sol.end());
+    cout<<S<<" "<<symbols<<endl;
+    cout.width(three.size()); 
+    cout<<right<<one<<endl;
+    cout<<"+";
+    cout.width(three.size() - 1);
+    cout<<right<<two<<endl;
+    cout<<three<<endl;
+    cout.width(three.size());
+    cout<<right<<sol<<endl;
+    return 0;
+}
