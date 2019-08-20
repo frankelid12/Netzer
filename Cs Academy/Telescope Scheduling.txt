@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+typedef int LL;
+int dp[1003][1003];
+
+int main(){
+    int n,x,y,z;
+    cin>>n;
+    memset(dp,0,sizeof(dp));
+    int m=1000;
+    //for overlapping start that overlap precicly
+    for (int i=0;i<n;i++){
+        cin>>x>>y>>z;
+        dp[x][y]=max(dp[x][y],z);
+    }
+    int R;
+    for (int len=2;len<=m+1;len++){
+        for (int L=0;L<=m-len+1;L++){
+            R=L+len-1;
+            for (int k=L;k<R;k++){
+                dp[L][R]=max(dp[L][R],dp[L][k]+dp[k+1][R]);
+            }
+        }
+    }
+    cout<<dp[0][m]<<"\n";
+    return 0;
+}
+
+
+
+תחילה מכניסים את העדיפות לתוך המערך במיקום של 
+dp[start][end]
+לאחר מכאן עוברים על כל שניה בציר זמן לאחר מכאן זה עובר על שתי שניות ומוצא מה העדיפות המקסימאלית שלהן לאחר מכאן על כל שלוש שניות ובודק
+מה העדיפות המקסימאלית שלהן עד שמגיעים לכל הזמן המוקצע שזה 
+m
+ובודקים מה העדיפות המקסימאלית שלו.
