@@ -1,0 +1,32 @@
+#include <iostream>
+
+using namespace std;
+
+typedef int LL;
+int main(){
+    int n,m,s;
+    scanf("%d%d%d",&n,&m,&s);
+    int now=1;
+    int End=n;
+    int Wgo=m;
+    int Wdo=s;
+    int step;
+    int ans=0;
+    while(now!=End){
+        step = (now+End)/2 + (now+End)%2;
+        ans+=(step-now)*Wgo+Wdo;
+        now=step;
+    }
+    printf("%d\n",ans);
+    return 0;
+
+    
+}
+
+
+
+כל הזמן הולכים לאמצע ומוסיפים את המרחק הליכה ל
+ans
+בודקים את האמצע והולכים ולאמצע הבא בין האמצע הקודם לסוף עד שמגיעים לסוף וה
+ans
+שניצבר זה בתשובה
