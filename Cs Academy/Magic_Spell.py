@@ -1,5 +1,4 @@
 dic_num = {}
-
 dic_num["xrtp"]=0
 dic_num["pmr"]=1
 dic_num["yep"]=2
@@ -30,8 +29,11 @@ for num in arr_num:
     
 print(sum)
 
-#the word are the numbers is letters but every letter going left .place left like "zero" is "xrtp"
+
+
 """
+עידן פרנקל
+the word are the numbers is letters but every letter going left .place left like "zero" is "xrtp"
 כל מילה בקסם היא המספר באותיות רק לקחת כל אות ימינה
 לאחר מכן אחרי שממירים את המילה לספרה
 בונים את המספר 
