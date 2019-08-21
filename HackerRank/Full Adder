@@ -10,18 +10,20 @@ int main()
     string sol = "";
     string one, two, three, temp;
     string symbols;
-
+//קליטת הקלט - מספר הגודל של השפה - שפת המספרים - מההבסיס וכו לתוך המערך של הסימנים 
     cin>>S>>symbols; 
-
+//מיפוי כל אות למספר 
     for (int i = 0; i < symbols.size(); ++i)
         map[symbols[i]] = i;
-    
+    //קליטת המחבור הראשון קליטת המחובר השני
     cin>>one>>sign;
     cin>>two;
     cin>>three>>temp;
+    //עדכון האינדקסים כיעוברםי מהסףוף להתחלה 
     int i = one.size() - 1;
     int j = two.size() - 1;
     
+    //כל עוד לא הגענו לסוף אחד המחוברים
     while (i >= 0 || j >= 0)
     {
         if (i < 0)
@@ -36,11 +38,15 @@ int main()
         }
         else 
         {
+        //הוספת שני הערכים עם הCACRYY מודלו גדול הבסיס של המספר מביא לנו את הצורה חדשה של הספרה ההחדשה
             sol += (char)symbols[ (carry + map[one[i]] + map[two[j]])% S];
+            //חישוב הCARRY
             carry = (carry + map[one[i]] + map[two[j]])/S;  
         }
         i--; j--;
     }
+    //הפיכת התוצאה
+    //הדפסה
     reverse(sol.begin(),sol.end());
     cout<<S<<" "<<symbols<<endl;
     cout.width(three.size()); 
