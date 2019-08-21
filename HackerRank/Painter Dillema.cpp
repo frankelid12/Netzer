@@ -13,6 +13,7 @@ int minChange(vector<int> &colors) {
     int count[max_time][num_color+1][num_color+1];
     for(int c1=0; c1<num_color+1; c1++) {
         for(int c2=0; c2<num_color+1; c2++) {
+            
             count[0][c1][c2] = max_change;
         }
     }
@@ -23,23 +24,29 @@ int minChange(vector<int> &colors) {
             for(int c2=0; c2<num_color+1; c2++) {
                 int min_change = max_change;
                 if(c1 == colors[t-1] || c2 == colors[t-1]) {
+                    //if to change the second bvrush  to the next color 
                     for(int c=0; c<num_color+1; c++) {
                         min_change = min(min_change, count[t-1][c1][c] + 1);
                     }
+                    //if to change the first brush
                     for(int c=0; c<num_color+1; c++) {
                         min_change = min(min_change, count[t-1][c][c2] + 1);
                     }
+                    // if cahnge both
                     count[t][c1][c2] = min(min_change, count[t-1][c1][c2]);
                 }
                 else {
+                    //max change the color not in the array
                     count[t][c1][c2] = max_change;
                 }
             }
         }
     }
     
+    
     int min_change = max_change;
     for(int c1=0; c1<num_color+1; c1++) {
+        //find the min change for the chace that i use the second brush in the end or 
         min_change = min(min_change, count[colors.size()][c1][colors.back()]);
         min_change = min(min_change, count[colors.size()][colors.back()][c1]);
     }
@@ -63,4 +70,3 @@ int main() {
     }
     return 0;
 }
-
