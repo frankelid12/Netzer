@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int a[26];
+int b[26];
+void init()
+{
+    memset(a,0,sizeof(a));
+}
+void solve(){
+    int d,p;cin>>d>>p;
+    for(int i=0;i<d;i++){
+        string s;cin>>s;
+        memset(b,0,sizeof(b));
+        for(int j=0;j<s.size();j++)
+        b[s[j]-'a']++,
+        a[s[j]-'a']=max(a[s[j]-'a'],b[s[j]-'a']);
+    }
+    for(int i=0;i<p;i++)
+    {
+        string s;cin>>s;
+        memset(b,0,sizeof(b));
+        int flag=0,ans1=0;
+        for(int j=0;j<s.size();j++)
+            b[s[j]-'a']++;
+        for(int j=0;j<26;j++){
+            if(b[j]<a[j])
+            {
+                flag=-1;
+                ans1+=a[j]-b[j];
+            }
+            if(flag!=-1&&b[j]>a[j])
+            {
+                flag=1;
+            }
+        }
+        if(flag==-1)
+            cout<<"No"<<" "<<ans1<<endl;
+        else if(flag==0)
+            cout<<"Yes Yes"<<endl;
+        else
+            cout<<"Yes No"<<endl;
+    }
+}
+int main()
+{
+    std::ios_base::sync_with_stdio (false);
+    int t;cin>>t;
+    while(t--)
+    {
+        init();
+        solve();
+    }
+    return 0;
+}
+
+
+
+תחילה סופר בסך הכל לכל המילים שניכנסו כמה יש מכל אות
+לאחר מכאן בודקים כמה אותיות יש במחזורת המילונית, אם יש בה אות אחת שהיא מופיעה פחות מבכלל המילים אז
+flag
+שווה למינוס אחד ושומרים ב
+ans1
+בכמה הטעות גדולה
+אם התיו מוםיע יותר פעמים סימן שהמילון הוא לא מושלם ו
+flag
+יהיה שווה 
+1
+אחרת זה יהיה מילון מושלם ו
+flag
+יהיה 0
