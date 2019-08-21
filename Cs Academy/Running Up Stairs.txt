@@ -1,0 +1,18 @@
+def fib(n):
+    a = 1
+    b = 1
+    c = 1
+    for i in range(n):
+        c = a+b
+        a=b
+        b=c
+    return c
+ 
+t = int(input())
+for i in range(t):
+    n = int(input()) - 1
+    print(fib(n))
+    
+    
+    בסך הכל מחפש את המיספר בסידרת פיבונאצי במקום ה 
+    n - 1
