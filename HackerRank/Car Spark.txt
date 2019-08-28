@@ -1,6 +1,6 @@
-#include<bits/stdc++.h>
+﻿#include<bits/stdc++.h>
 using namespace std;
-
+//ff
 int dp[50];
 struct node{
     int s,e,a;
